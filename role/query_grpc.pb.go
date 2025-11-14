@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion9
 
 const (
 	RoleQueryService_FindAllRole_FullMethodName   = "/pb.role.RoleQueryService/FindAllRole"
+	RoleQueryService_FindByName_FullMethodName    = "/pb.role.RoleQueryService/FindByName"
 	RoleQueryService_FindByIdRole_FullMethodName  = "/pb.role.RoleQueryService/FindByIdRole"
 	RoleQueryService_FindByActive_FullMethodName  = "/pb.role.RoleQueryService/FindByActive"
 	RoleQueryService_FindByTrashed_FullMethodName = "/pb.role.RoleQueryService/FindByTrashed"
@@ -31,6 +32,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RoleQueryServiceClient interface {
 	FindAllRole(ctx context.Context, in *FindAllRoleRequest, opts ...grpc.CallOption) (*ApiResponsePaginationRole, error)
+	FindByName(ctx context.Context, in *FindByNameRequest, opts ...grpc.CallOption) (*ApiResponseRole, error)
 	FindByIdRole(ctx context.Context, in *FindByIdRoleRequest, opts ...grpc.CallOption) (*ApiResponseRole, error)
 	FindByActive(ctx context.Context, in *FindAllRoleRequest, opts ...grpc.CallOption) (*ApiResponsePaginationRoleDeleteAt, error)
 	FindByTrashed(ctx context.Context, in *FindAllRoleRequest, opts ...grpc.CallOption) (*ApiResponsePaginationRoleDeleteAt, error)
@@ -49,6 +51,16 @@ func (c *roleQueryServiceClient) FindAllRole(ctx context.Context, in *FindAllRol
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(ApiResponsePaginationRole)
 	err := c.cc.Invoke(ctx, RoleQueryService_FindAllRole_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *roleQueryServiceClient) FindByName(ctx context.Context, in *FindByNameRequest, opts ...grpc.CallOption) (*ApiResponseRole, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ApiResponseRole)
+	err := c.cc.Invoke(ctx, RoleQueryService_FindByName_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -100,6 +112,7 @@ func (c *roleQueryServiceClient) FindByUserId(ctx context.Context, in *FindByIdU
 // for forward compatibility.
 type RoleQueryServiceServer interface {
 	FindAllRole(context.Context, *FindAllRoleRequest) (*ApiResponsePaginationRole, error)
+	FindByName(context.Context, *FindByNameRequest) (*ApiResponseRole, error)
 	FindByIdRole(context.Context, *FindByIdRoleRequest) (*ApiResponseRole, error)
 	FindByActive(context.Context, *FindAllRoleRequest) (*ApiResponsePaginationRoleDeleteAt, error)
 	FindByTrashed(context.Context, *FindAllRoleRequest) (*ApiResponsePaginationRoleDeleteAt, error)
@@ -116,6 +129,9 @@ type UnimplementedRoleQueryServiceServer struct{}
 
 func (UnimplementedRoleQueryServiceServer) FindAllRole(context.Context, *FindAllRoleRequest) (*ApiResponsePaginationRole, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindAllRole not implemented")
+}
+func (UnimplementedRoleQueryServiceServer) FindByName(context.Context, *FindByNameRequest) (*ApiResponseRole, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindByName not implemented")
 }
 func (UnimplementedRoleQueryServiceServer) FindByIdRole(context.Context, *FindByIdRoleRequest) (*ApiResponseRole, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindByIdRole not implemented")
@@ -164,6 +180,24 @@ func _RoleQueryService_FindAllRole_Handler(srv interface{}, ctx context.Context,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RoleQueryServiceServer).FindAllRole(ctx, req.(*FindAllRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _RoleQueryService_FindByName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FindByNameRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RoleQueryServiceServer).FindByName(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: RoleQueryService_FindByName_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RoleQueryServiceServer).FindByName(ctx, req.(*FindByNameRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -250,6 +284,10 @@ var RoleQueryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "FindAllRole",
 			Handler:    _RoleQueryService_FindAllRole_Handler,
+		},
+		{
+			MethodName: "FindByName",
+			Handler:    _RoleQueryService_FindByName_Handler,
 		},
 		{
 			MethodName: "FindByIdRole",
