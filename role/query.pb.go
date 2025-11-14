@@ -24,7 +24,7 @@ const (
 
 type FindByNameRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Name          int32                  `protobuf:"varint,1,opt,name=name,proto3" json:"name,omitempty"`
+	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -59,11 +59,11 @@ func (*FindByNameRequest) Descriptor() ([]byte, []int) {
 	return file_role_query_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *FindByNameRequest) GetName() int32 {
+func (x *FindByNameRequest) GetName() string {
 	if x != nil {
 		return x.Name
 	}
-	return 0
+	return ""
 }
 
 type ApiResponsePaginationRole struct {
@@ -208,7 +208,7 @@ const file_role_query_proto_rawDesc = "" +
 	"\n" +
 	"\x10role/query.proto\x12\apb.role\x1a\tapi.proto\x1a\x11role/common.proto\"'\n" +
 	"\x11FindByNameRequest\x12\x12\n" +
-	"\x04name\x18\x01 \x01(\x05R\x04name\"\xb0\x01\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\"\xb0\x01\n" +
 	"\x19ApiResponsePaginationRole\x12\x16\n" +
 	"\x06status\x18\x01 \x01(\tR\x06status\x12\x18\n" +
 	"\amessage\x18\x02 \x01(\tR\amessage\x12)\n" +
