@@ -7,7 +7,7 @@
 package user
 
 import (
-	auth "github.com/MamangRust/simple_microservice_ecommerce_pb/auth"
+	common "github.com/MamangRust/simple_microservice_ecommerce_pb/common"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
@@ -395,7 +395,7 @@ var File_user_command_proto protoreflect.FileDescriptor
 
 const file_user_command_proto_rawDesc = "" +
 	"\n" +
-	"\x12user/command.proto\x12\apb.user\x1a\x1bgoogle/protobuf/empty.proto\x1a\x11user/common.proto\x1a\x0fauth/auth.proto\"\xaa\x01\n" +
+	"\x12user/command.proto\x12\apb.user\x1a\x1bgoogle/protobuf/empty.proto\x1a\x11user/common.proto\x1a\x13common/common.proto\"\xaa\x01\n" +
 	"\x11CreateUserRequest\x12\x1c\n" +
 	"\tfirstname\x18\x01 \x01(\tR\tfirstname\x12\x1a\n" +
 	"\blastname\x18\x02 \x01(\tR\blastname\x12\x14\n" +
@@ -421,10 +421,10 @@ const file_user_command_proto_rawDesc = "" +
 	"\amessage\x18\x02 \x01(\tR\amessage\"F\n" +
 	"\x12ApiResponseUserAll\x12\x16\n" +
 	"\x06status\x18\x01 \x01(\tR\x06status\x12\x18\n" +
-	"\amessage\x18\x02 \x01(\tR\amessage2\xd1\x05\n" +
-	"\x12UserCommandService\x12@\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage2\xd3\x05\n" +
+	"\x12UserCommandService\x12B\n" +
 	"\n" +
-	"CreateUser\x12\x18.pb.auth.RegisterRequest\x1a\x18.pb.user.ApiResponseUser\x12B\n" +
+	"CreateUser\x12\x1a.pb.common.RegisterRequest\x1a\x18.pb.user.ApiResponseUser\x12B\n" +
 	"\n" +
 	"UpdateUser\x12\x1a.pb.user.UpdateUserRequest\x1a\x18.pb.user.ApiResponseUser\x12M\n" +
 	"\vTrashedUser\x12\x1c.pb.user.FindByIdUserRequest\x1a .pb.user.ApiResponseUserDeleteAt\x12M\n" +
@@ -455,14 +455,14 @@ var file_user_command_proto_goTypes = []any{
 	(*UpdateUserRequest)(nil),         // 3: pb.user.UpdateUserRequest
 	(*ApiResponseUserDelete)(nil),     // 4: pb.user.ApiResponseUserDelete
 	(*ApiResponseUserAll)(nil),        // 5: pb.user.ApiResponseUserAll
-	(*auth.RegisterRequest)(nil),      // 6: pb.auth.RegisterRequest
+	(*common.RegisterRequest)(nil),    // 6: pb.common.RegisterRequest
 	(*FindByIdUserRequest)(nil),       // 7: pb.user.FindByIdUserRequest
 	(*emptypb.Empty)(nil),             // 8: google.protobuf.Empty
 	(*ApiResponseUser)(nil),           // 9: pb.user.ApiResponseUser
 	(*ApiResponseUserDeleteAt)(nil),   // 10: pb.user.ApiResponseUserDeleteAt
 }
 var file_user_command_proto_depIdxs = []int32{
-	6,  // 0: pb.user.UserCommandService.CreateUser:input_type -> pb.auth.RegisterRequest
+	6,  // 0: pb.user.UserCommandService.CreateUser:input_type -> pb.common.RegisterRequest
 	3,  // 1: pb.user.UserCommandService.UpdateUser:input_type -> pb.user.UpdateUserRequest
 	7,  // 2: pb.user.UserCommandService.TrashedUser:input_type -> pb.user.FindByIdUserRequest
 	7,  // 3: pb.user.UserCommandService.RestoreUser:input_type -> pb.user.FindByIdUserRequest

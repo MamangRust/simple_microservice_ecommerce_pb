@@ -8,6 +8,7 @@ package auth
 
 import (
 	context "context"
+	common "github.com/MamangRust/simple_microservice_ecommerce_pb/common"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -35,7 +36,7 @@ type AuthServiceClient interface {
 	VerifyCode(ctx context.Context, in *VerifyCodeRequest, opts ...grpc.CallOption) (*ApiResponseVerifyCode, error)
 	ForgotPassword(ctx context.Context, in *ForgotPasswordRequest, opts ...grpc.CallOption) (*ApiResponseForgotPassword, error)
 	ResetPassword(ctx context.Context, in *ResetPasswordRequest, opts ...grpc.CallOption) (*ApiResponseResetPassword, error)
-	RegisterUser(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*ApiResponseRegister, error)
+	RegisterUser(ctx context.Context, in *common.RegisterRequest, opts ...grpc.CallOption) (*ApiResponseRegister, error)
 	LoginUser(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*ApiResponseLogin, error)
 	RefreshToken(ctx context.Context, in *RefreshTokenRequest, opts ...grpc.CallOption) (*ApiResponseRefreshToken, error)
 	GetMe(ctx context.Context, in *GetMeRequest, opts ...grpc.CallOption) (*ApiResponseGetMe, error)
@@ -79,7 +80,7 @@ func (c *authServiceClient) ResetPassword(ctx context.Context, in *ResetPassword
 	return out, nil
 }
 
-func (c *authServiceClient) RegisterUser(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*ApiResponseRegister, error) {
+func (c *authServiceClient) RegisterUser(ctx context.Context, in *common.RegisterRequest, opts ...grpc.CallOption) (*ApiResponseRegister, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(ApiResponseRegister)
 	err := c.cc.Invoke(ctx, AuthService_RegisterUser_FullMethodName, in, out, cOpts...)
@@ -126,7 +127,7 @@ type AuthServiceServer interface {
 	VerifyCode(context.Context, *VerifyCodeRequest) (*ApiResponseVerifyCode, error)
 	ForgotPassword(context.Context, *ForgotPasswordRequest) (*ApiResponseForgotPassword, error)
 	ResetPassword(context.Context, *ResetPasswordRequest) (*ApiResponseResetPassword, error)
-	RegisterUser(context.Context, *RegisterRequest) (*ApiResponseRegister, error)
+	RegisterUser(context.Context, *common.RegisterRequest) (*ApiResponseRegister, error)
 	LoginUser(context.Context, *LoginRequest) (*ApiResponseLogin, error)
 	RefreshToken(context.Context, *RefreshTokenRequest) (*ApiResponseRefreshToken, error)
 	GetMe(context.Context, *GetMeRequest) (*ApiResponseGetMe, error)
@@ -149,7 +150,7 @@ func (UnimplementedAuthServiceServer) ForgotPassword(context.Context, *ForgotPas
 func (UnimplementedAuthServiceServer) ResetPassword(context.Context, *ResetPasswordRequest) (*ApiResponseResetPassword, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ResetPassword not implemented")
 }
-func (UnimplementedAuthServiceServer) RegisterUser(context.Context, *RegisterRequest) (*ApiResponseRegister, error) {
+func (UnimplementedAuthServiceServer) RegisterUser(context.Context, *common.RegisterRequest) (*ApiResponseRegister, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RegisterUser not implemented")
 }
 func (UnimplementedAuthServiceServer) LoginUser(context.Context, *LoginRequest) (*ApiResponseLogin, error) {
@@ -237,7 +238,7 @@ func _AuthService_ResetPassword_Handler(srv interface{}, ctx context.Context, de
 }
 
 func _AuthService_RegisterUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RegisterRequest)
+	in := new(common.RegisterRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -249,7 +250,7 @@ func _AuthService_RegisterUser_Handler(srv interface{}, ctx context.Context, dec
 		FullMethod: AuthService_RegisterUser_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).RegisterUser(ctx, req.(*RegisterRequest))
+		return srv.(AuthServiceServer).RegisterUser(ctx, req.(*common.RegisterRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
