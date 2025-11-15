@@ -36,7 +36,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserCommandServiceClient interface {
-	CreateUser(ctx context.Context, in *common.RegisterRequest, opts ...grpc.CallOption) (*ApiResponseUser, error)
+	CreateUser(ctx context.Context, in *common.CreateUserRequest, opts ...grpc.CallOption) (*ApiResponseUser, error)
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*ApiResponseUser, error)
 	TrashedUser(ctx context.Context, in *FindByIdUserRequest, opts ...grpc.CallOption) (*ApiResponseUserDeleteAt, error)
 	RestoreUser(ctx context.Context, in *FindByIdUserRequest, opts ...grpc.CallOption) (*ApiResponseUserDeleteAt, error)
@@ -55,7 +55,7 @@ func NewUserCommandServiceClient(cc grpc.ClientConnInterface) UserCommandService
 	return &userCommandServiceClient{cc}
 }
 
-func (c *userCommandServiceClient) CreateUser(ctx context.Context, in *common.RegisterRequest, opts ...grpc.CallOption) (*ApiResponseUser, error) {
+func (c *userCommandServiceClient) CreateUser(ctx context.Context, in *common.CreateUserRequest, opts ...grpc.CallOption) (*ApiResponseUser, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(ApiResponseUser)
 	err := c.cc.Invoke(ctx, UserCommandService_CreateUser_FullMethodName, in, out, cOpts...)
@@ -149,7 +149,7 @@ func (c *userCommandServiceClient) DeleteAllUserPermanent(ctx context.Context, i
 // All implementations must embed UnimplementedUserCommandServiceServer
 // for forward compatibility.
 type UserCommandServiceServer interface {
-	CreateUser(context.Context, *common.RegisterRequest) (*ApiResponseUser, error)
+	CreateUser(context.Context, *common.CreateUserRequest) (*ApiResponseUser, error)
 	UpdateUser(context.Context, *UpdateUserRequest) (*ApiResponseUser, error)
 	TrashedUser(context.Context, *FindByIdUserRequest) (*ApiResponseUserDeleteAt, error)
 	RestoreUser(context.Context, *FindByIdUserRequest) (*ApiResponseUserDeleteAt, error)
@@ -168,7 +168,7 @@ type UserCommandServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedUserCommandServiceServer struct{}
 
-func (UnimplementedUserCommandServiceServer) CreateUser(context.Context, *common.RegisterRequest) (*ApiResponseUser, error) {
+func (UnimplementedUserCommandServiceServer) CreateUser(context.Context, *common.CreateUserRequest) (*ApiResponseUser, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
 }
 func (UnimplementedUserCommandServiceServer) UpdateUser(context.Context, *UpdateUserRequest) (*ApiResponseUser, error) {
@@ -217,7 +217,7 @@ func RegisterUserCommandServiceServer(s grpc.ServiceRegistrar, srv UserCommandSe
 }
 
 func _UserCommandService_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(common.RegisterRequest)
+	in := new(common.CreateUserRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -229,7 +229,7 @@ func _UserCommandService_CreateUser_Handler(srv interface{}, ctx context.Context
 		FullMethod: UserCommandService_CreateUser_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserCommandServiceServer).CreateUser(ctx, req.(*common.RegisterRequest))
+		return srv.(UserCommandServiceServer).CreateUser(ctx, req.(*common.CreateUserRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
