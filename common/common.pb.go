@@ -28,6 +28,8 @@ type RegisterRequest struct {
 	Email           string                 `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
 	Password        string                 `protobuf:"bytes,4,opt,name=password,proto3" json:"password,omitempty"`
 	ConfirmPassword string                 `protobuf:"bytes,5,opt,name=confirm_password,json=confirmPassword,proto3" json:"confirm_password,omitempty"`
+	VerifiedCode    string                 `protobuf:"bytes,6,opt,name=verified_code,json=verifiedCode,proto3" json:"verified_code,omitempty"`
+	IsVerified      bool                   `protobuf:"varint,7,opt,name=is_verified,json=isVerified,proto3" json:"is_verified,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -97,17 +99,34 @@ func (x *RegisterRequest) GetConfirmPassword() string {
 	return ""
 }
 
+func (x *RegisterRequest) GetVerifiedCode() string {
+	if x != nil {
+		return x.VerifiedCode
+	}
+	return ""
+}
+
+func (x *RegisterRequest) GetIsVerified() bool {
+	if x != nil {
+		return x.IsVerified
+	}
+	return false
+}
+
 var File_common_common_proto protoreflect.FileDescriptor
 
 const file_common_common_proto_rawDesc = "" +
 	"\n" +
-	"\x13common/common.proto\x12\tpb.common\"\xa8\x01\n" +
+	"\x13common/common.proto\x12\tpb.common\"\xee\x01\n" +
 	"\x0fRegisterRequest\x12\x1c\n" +
 	"\tfirstname\x18\x01 \x01(\tR\tfirstname\x12\x1a\n" +
 	"\blastname\x18\x02 \x01(\tR\blastname\x12\x14\n" +
 	"\x05email\x18\x03 \x01(\tR\x05email\x12\x1a\n" +
 	"\bpassword\x18\x04 \x01(\tR\bpassword\x12)\n" +
-	"\x10confirm_password\x18\x05 \x01(\tR\x0fconfirmPasswordB?Z=github.com/MamangRust/simple_microservice_ecommerce_pb/commonb\x06proto3"
+	"\x10confirm_password\x18\x05 \x01(\tR\x0fconfirmPassword\x12#\n" +
+	"\rverified_code\x18\x06 \x01(\tR\fverifiedCode\x12\x1f\n" +
+	"\vis_verified\x18\a \x01(\bR\n" +
+	"isVerifiedB?Z=github.com/MamangRust/simple_microservice_ecommerce_pb/commonb\x06proto3"
 
 var (
 	file_common_common_proto_rawDescOnce sync.Once
