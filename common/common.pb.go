@@ -114,13 +114,14 @@ func (x *CreateUserRequest) GetIsVerified() bool {
 }
 
 type RegisterRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Firstname     string                 `protobuf:"bytes,1,opt,name=firstname,proto3" json:"firstname,omitempty"`
-	Lastname      string                 `protobuf:"bytes,2,opt,name=lastname,proto3" json:"lastname,omitempty"`
-	Email         string                 `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
-	Password      string                 `protobuf:"bytes,4,opt,name=password,proto3" json:"password,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	Firstname       string                 `protobuf:"bytes,1,opt,name=firstname,proto3" json:"firstname,omitempty"`
+	Lastname        string                 `protobuf:"bytes,2,opt,name=lastname,proto3" json:"lastname,omitempty"`
+	Email           string                 `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
+	Password        string                 `protobuf:"bytes,4,opt,name=password,proto3" json:"password,omitempty"`
+	ConfirmPassword string                 `protobuf:"bytes,5,opt,name=confirm_password,json=confirmPassword,proto3" json:"confirm_password,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
 }
 
 func (x *RegisterRequest) Reset() {
@@ -181,6 +182,13 @@ func (x *RegisterRequest) GetPassword() string {
 	return ""
 }
 
+func (x *RegisterRequest) GetConfirmPassword() string {
+	if x != nil {
+		return x.ConfirmPassword
+	}
+	return ""
+}
+
 var File_common_common_proto protoreflect.FileDescriptor
 
 const file_common_common_proto_rawDesc = "" +
@@ -194,12 +202,13 @@ const file_common_common_proto_rawDesc = "" +
 	"\x10confirm_password\x18\x05 \x01(\tR\x0fconfirmPassword\x12#\n" +
 	"\rverified_code\x18\x06 \x01(\tR\fverifiedCode\x12\x1f\n" +
 	"\vis_verified\x18\a \x01(\bR\n" +
-	"isVerified\"}\n" +
+	"isVerified\"\xa8\x01\n" +
 	"\x0fRegisterRequest\x12\x1c\n" +
 	"\tfirstname\x18\x01 \x01(\tR\tfirstname\x12\x1a\n" +
 	"\blastname\x18\x02 \x01(\tR\blastname\x12\x14\n" +
 	"\x05email\x18\x03 \x01(\tR\x05email\x12\x1a\n" +
-	"\bpassword\x18\x04 \x01(\tR\bpasswordB?Z=github.com/MamangRust/simple_microservice_ecommerce_pb/commonb\x06proto3"
+	"\bpassword\x18\x04 \x01(\tR\bpassword\x12)\n" +
+	"\x10confirm_password\x18\x05 \x01(\tR\x0fconfirmPasswordB?Z=github.com/MamangRust/simple_microservice_ecommerce_pb/commonb\x06proto3"
 
 var (
 	file_common_common_proto_rawDescOnce sync.Once
