@@ -153,8 +153,7 @@ func (x *UpdateOrderItemRequest) GetPrice() int32 {
 type CreateOrderRequest struct {
 	state         protoimpl.MessageState    `protogen:"open.v1"`
 	UserId        int32                     `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	TotalPrice    int32                     `protobuf:"varint,2,opt,name=total_price,json=totalPrice,proto3" json:"total_price,omitempty"`
-	Items         []*CreateOrderItemRequest `protobuf:"bytes,4,rep,name=items,proto3" json:"items,omitempty"`
+	Items         []*CreateOrderItemRequest `protobuf:"bytes,2,rep,name=items,proto3" json:"items,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -196,13 +195,6 @@ func (x *CreateOrderRequest) GetUserId() int32 {
 	return 0
 }
 
-func (x *CreateOrderRequest) GetTotalPrice() int32 {
-	if x != nil {
-		return x.TotalPrice
-	}
-	return 0
-}
-
 func (x *CreateOrderRequest) GetItems() []*CreateOrderItemRequest {
 	if x != nil {
 		return x.Items
@@ -214,8 +206,7 @@ type UpdateOrderRequest struct {
 	state         protoimpl.MessageState    `protogen:"open.v1"`
 	OrderId       int32                     `protobuf:"varint,1,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
 	UserId        int32                     `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	TotalPrice    int32                     `protobuf:"varint,3,opt,name=total_price,json=totalPrice,proto3" json:"total_price,omitempty"`
-	Items         []*UpdateOrderItemRequest `protobuf:"bytes,4,rep,name=items,proto3" json:"items,omitempty"`
+	Items         []*UpdateOrderItemRequest `protobuf:"bytes,3,rep,name=items,proto3" json:"items,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -260,13 +251,6 @@ func (x *UpdateOrderRequest) GetOrderId() int32 {
 func (x *UpdateOrderRequest) GetUserId() int32 {
 	if x != nil {
 		return x.UserId
-	}
-	return 0
-}
-
-func (x *UpdateOrderRequest) GetTotalPrice() int32 {
-	if x != nil {
-		return x.TotalPrice
 	}
 	return 0
 }
@@ -397,18 +381,14 @@ const file_order_command_proto_rawDesc = "" +
 	"\n" +
 	"product_id\x18\x02 \x01(\x05R\tproductId\x12\x1a\n" +
 	"\bquantity\x18\x03 \x01(\x05R\bquantity\x12\x14\n" +
-	"\x05price\x18\x04 \x01(\x05R\x05price\"\x86\x01\n" +
+	"\x05price\x18\x04 \x01(\x05R\x05price\"e\n" +
 	"\x12CreateOrderRequest\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\x05R\x06userId\x12\x1f\n" +
-	"\vtotal_price\x18\x02 \x01(\x05R\n" +
-	"totalPrice\x126\n" +
-	"\x05items\x18\x04 \x03(\v2 .pb.order.CreateOrderItemRequestR\x05items\"\xa1\x01\n" +
+	"\auser_id\x18\x01 \x01(\x05R\x06userId\x126\n" +
+	"\x05items\x18\x02 \x03(\v2 .pb.order.CreateOrderItemRequestR\x05items\"\x80\x01\n" +
 	"\x12UpdateOrderRequest\x12\x19\n" +
 	"\border_id\x18\x01 \x01(\x05R\aorderId\x12\x17\n" +
-	"\auser_id\x18\x02 \x01(\x05R\x06userId\x12\x1f\n" +
-	"\vtotal_price\x18\x03 \x01(\x05R\n" +
-	"totalPrice\x126\n" +
-	"\x05items\x18\x04 \x03(\v2 .pb.order.UpdateOrderItemRequestR\x05items\"J\n" +
+	"\auser_id\x18\x02 \x01(\x05R\x06userId\x126\n" +
+	"\x05items\x18\x03 \x03(\v2 .pb.order.UpdateOrderItemRequestR\x05items\"J\n" +
 	"\x16ApiResponseOrderDelete\x12\x16\n" +
 	"\x06status\x18\x01 \x01(\tR\x06status\x12\x18\n" +
 	"\amessage\x18\x02 \x01(\tR\amessage\"G\n" +
